@@ -57,19 +57,19 @@ public class Empleado extends Person {
 		this.ticket = ticket;
 	}
 	public void cancelarTicket() {
-		if(this.getTicket().getEstado()!=Ticket.ESTADO_CANCELADO && this.getTicket().getEstado()!=Ticket.ESTADO_FINALIZADO) {
-			this.getTicket().setEstadoCancelado();		
+		if(this.getTicket().getState().toString()!="cancelado" && this.getTicket().getState().toString()!="finalizado") {
+			this.getTicket().setState(new CancelarState(this.getTicket()));		
 			this.modificarPuntaje(-1);
 		}
 	}
 	public void suspenderTicket() {
-		if(this.getTicket().getEstado()!=Ticket.ESTADO_CANCELADO && this.getTicket().getEstado()!=Ticket.ESTADO_FINALIZADO) {
-			this.getTicket().setEstadoSuspendido();
+		if(this.getTicket().getState().toString()!= "cancelado" && this.getTicket().getState().toString() != "finalizado") {
+			this.getTicket().setState(new PausaState(this.getTicket()));
 		}
 	}
 	public void activarTicket() {
-		if(this.getTicket().getEstado()!=Ticket.ESTADO_CANCELADO && this.getTicket().getEstado()!=Ticket.ESTADO_FINALIZADO) {
-			this.getTicket().setEstadoActivo();
+		if(this.getTicket().getState().toString()!= "cancelado" && this.getTicket().getState().toString() != "finalizado") {
+			this.getTicket().setState(new ActivoState(this.getTicket()));
 		}
 	}
 

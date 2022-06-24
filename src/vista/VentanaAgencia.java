@@ -2,9 +2,11 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,10 +17,15 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class VentanaAgencia extends JFrame implements IVistaAgencia {
+import modelo.Empleado;
+import modelo.Empleador;
+import javax.swing.AbstractListModel;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.JTextPane;
+
+public class VentanaAgencia extends JFrame implements IVistaAgencia, ListSelectionListener {
 
 	private JPanel contentPane;
 	private JLabel LabelTituloVentana;
@@ -30,18 +37,20 @@ public class VentanaAgencia extends JFrame implements IVistaAgencia {
 	private JLabel LabelEmpleadores;
 	private JScrollPane scrollPane;
 	private JScrollPane scrollPane_1;
-	private JList listEmpleados;
-	private JList listEmpleadores;
+	private JList<Empleado> listEmpleados;
+	private JList<Empleador> listEmpleadores;
 	private JButton BotonEncuentrosLaborales;
 	private JButton BotonContrataciones;
 	private JButton BotonComision;
 	private JButton BotonSolicitudes;
 	private JScrollPane scrollPane_2;
-	private JTextField textSalida;
 	private JPanel panel;
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JPanel panel_3;
+	private DefaultListModel<Empleado> modeloListaEmpleado;
+	private DefaultListModel<Empleador> modeloListaEmpleador;
+	private JTextPane textSalida;
 
 	
 
@@ -77,7 +86,8 @@ public class VentanaAgencia extends JFrame implements IVistaAgencia {
 		this.scrollPane = new JScrollPane();
 		this.panelEmpleados.add(this.scrollPane, BorderLayout.CENTER);
 		
-		this.listEmpleados = new JList();
+		this.listEmpleados = new JList<Empleado>();
+		this.listEmpleados.addListSelectionListener(this);
 		this.listEmpleados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.scrollPane.setViewportView(this.listEmpleados);
 		
@@ -125,17 +135,24 @@ public class VentanaAgencia extends JFrame implements IVistaAgencia {
 		this.scrollPane_1 = new JScrollPane();
 		this.panelEmpleadores.add(this.scrollPane_1, BorderLayout.CENTER);
 		
-		this.listEmpleadores = new JList();
+		this.listEmpleadores = new JList<Empleador>();
+		this.listEmpleadores.addListSelectionListener(this);
 		this.listEmpleadores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.scrollPane_1.setViewportView(this.listEmpleadores);
 		
 		this.scrollPane_2 = new JScrollPane();
 		this.contentPane.add(this.scrollPane_2, BorderLayout.SOUTH);
 		
-		this.textSalida = new JTextField();
+		this.textSalida = new JTextPane();
+		this.textSalida.setEditable(false);
 		this.scrollPane_2.setViewportView(this.textSalida);
-		this.textSalida.setColumns(10);
-		this.textSalida.setPreferredSize(new Dimension(50,50));
+		this.textSalida.setPreferredSize(new Dimension(30,50));
+		
+		
+		this.modeloListaEmpleado = new DefaultListModel<Empleado>();
+		this.modeloListaEmpleador = new DefaultListModel<Empleador>();
+		this.listEmpleados.setModel(modeloListaEmpleado) ;
+		this.listEmpleadores.setModel(modeloListaEmpleador);
 	}
 
 
@@ -151,5 +168,59 @@ public class VentanaAgencia extends JFrame implements IVistaAgencia {
 		String titulo=this.LabelTituloVentana.getText();
 		titulo+=nombre;
 		this.LabelTituloVentana.setText(titulo);
+	}
+
+
+	@Override
+	public Empleado getEmpleado() {
+		// TODO Auto-generated method stub
+		return this.listEmpleados.getSelectedValue();
+	}
+
+
+	@Override
+	public Empleador getEmpleador() {
+		// TODO Auto-generated method stub
+		return this.listEmpleadores.getSelectedValue();
+	}
+
+
+	@Override
+	public void actualizarListas() {
+		this.repaint();	
+	}
+
+
+	@Override
+	public DefaultListModel<Empleado> getModeloListaEmpleado() {
+		// TODO Auto-generated method stub
+		return this.modeloListaEmpleado;
+	}
+
+
+	@Override
+	public DefaultListModel<Empleador> getModeloListaEmpleador() {
+		// TODO Auto-generated method stub
+		return this.modeloListaEmpleador;
+	}
+	
+	//BUSCAR COMO HACER PARA SOLO SELECCIONAR UN ELEMENTO DE LA DOS LISTAS
+	public void valueChanged(ListSelectionEvent e) {
+		if(e.getSource()==this.listEmpleados) {
+			System.out.println("una seleccion en lista empleados");
+			if(this.listEmpleadores.getSelectedValue()!=null) {
+				System.out.println("lista de empleadores tiene una seleccion");
+
+				this.listEmpleadores.setSelectedIndex(this.listEmpleadores.getSelectedIndex()+1);
+			}
+		}else if(e.getSource()==this.listEmpleadores) {
+			System.out.println("una seleccion en lista empleadores");
+			if(this.listEmpleados.getSelectedValue()!=null) {	
+				System.out.println("lista de empleados tiene una seleccion");
+
+				this.listEmpleados.setSelectedIndex(this.listEmpleados.getSelectedIndex()+1);
+				
+			}
+		}
 	}
 }

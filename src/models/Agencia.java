@@ -115,11 +115,11 @@ public class Agencia extends Usuario {
 		e.getEmpleador().addContratacion(contratacion);
 		this.contrataciones.add(contratacion);
 		e.getTicketEmpleador().addEmpleadoObtenido();
-		if(e.getTicketEmpleador().getEstado() == Ticket.ESTADO_FINALIZADO) {
+		if(e.getTicketEmpleador().getState().toString() == "finalizado") {
 			e.getEmpleador().modificarPuntaje(50);
 		}
 		e.getEmpleado().getTicket().setResultadoExito();
-		e.getEmpleado().getTicket().setEstadoFinalizado();
+		e.getEmpleado().getTicket().setState(new FinalizarState(e.getEmpleado().getTicket()));
 		e.getEmpleado().modificarPuntaje(10);
 	
 	}
@@ -194,7 +194,75 @@ public class Agencia extends Usuario {
 		
 	}
 	
+	public Agencia loginAgencia(String username,String password)throws NoSeEncontroUsuarioException, ContrasenaIncorrectaException{
+		Agencia agencia=null;
+		if(this.getUsername().equals(username))
+			if(this.isValid(username, password))
+				agencia=this;
+			else
+				throw new ContrasenaIncorrectaException("Contrasena incorrecta, no se pudo logear");
+		else
+			throw new NoSeEncontroUsuarioException(" usuario inexistente, no se pudo logear",username);
+		
+		return agencia;
+	}
 	
+	//LOGIN USUARIO EMPLEADO CON EXCEPTIONS DE LOGIN
+		public Empleado loginEmpleado(String username,String password) throws NoSeEncontroUsuarioException, ContrasenaIncorrectaException{
+			Empleado empleado=null;
+			int i=0;
+			while(i<this.empleados.size() && this.empleados.get(i).getUsername().equals(username)==false)
+				i++;
+			if(i==this.empleados.size()) 
+				throw new NoSeEncontroUsuarioException(" usuario inexistente, no se pudo logear",username);//System.out.println("Nombre de usuario inexistente, no se pudo logear");//TIRAR EXCEPTION
+			else 
+				if(this.empleados.get(i).isValid(username, password))
+					empleado=this.empleados.get(i);
+				else
+					throw new ContrasenaIncorrectaException("Contrasena incorrecta, no se pudo logear");//System.out.println("Contrasena incorrecta, no se pudo logear");//TIRAR EXCEPTION
+			
+			return empleado;
+		}
+		//LOGIN USUARIO EMPLEADOR CON EXCEPTIONS DE LOGIN
+		public Empleador loginEmpleador(String username,String password)throws NoSeEncontroUsuarioException, ContrasenaIncorrectaException {
+			Empleador empleador=null;
+			int i=0;
+			while(i<this.empleadores.size() && this.empleadores.get(i).getUsername().equals(username)==false)
+				i++;
+			if(i==this.empleadores.size()) 
+				throw new NoSeEncontroUsuarioException(" usuario inexistente, no se pudo logear",username);//System.out.println("Nombre de usuario inexistente, no se pudo logear");//TIRAR EXCEPTION
+			else 
+				if(this.empleadores.get(i).isValid(username, password))
+					empleador=this.empleadores.get(i);
+				else
+					throw new ContrasenaIncorrectaException("Contrasena incorrecta, no se pudo logear");//System.out.println("Contrasena incorrecta, no se pudo logear");//TIRAR EXCEPTION
+			
+			return empleador;
+		}
+		
+		//REVISAR ANTES DE AGREGAR EMPLEADO O EMPLEADOR 
+		public void empleadoValido(Empleado e) throws NombreExistenteException {
+			int i=0;
+			while(i<this.empleados.size() && this.empleados.get(i).getUsername().equals(e.getUsername())==false)
+				i++;
+			if(i==this.empleados.size()) {
+				this.empleados.add(e);	
+			}
+			else
+				throw new NombreExistenteException("Nombre de usuario existente",e.getUsername());
+				//System.out.println("Nombre de usuario existente, no se creo nuevo usuario");
+		}
+		public void empleadorValido(Empleador e) throws NombreExistenteException {
+			int i=0;
+			while(i<this.empleadores.size() && this.empleadores.get(i).getUsername().equals(e.getUsername())==false)
+				i++;
+			if(i==this.empleadores.size()) {
+				this.empleadores.add(e);
+				
+			}
+			else
+				throw new NombreExistenteException("Nombre de usuario existente",e.getUsername());
+		}
 	
 	
 	

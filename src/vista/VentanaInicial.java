@@ -12,6 +12,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
@@ -160,5 +162,17 @@ public class VentanaInicial extends JFrame implements KeyListener, IVistaLogin {
 	public void addActionListener(ActionListener listener) {
 		this.BotonLogin.addActionListener(listener);
 		this.BotonRegistrar.addActionListener(listener);
+	}
+
+	@Override
+	public JRadioButton getRadioButton() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void emergenteRButtonNull() {
+		// TODO Auto-generated method stub
+		
 	}
 }
