@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
@@ -17,11 +18,14 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.KeyListener;
+import java.time.LocalDate;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
-public class VentanaRegistro extends JFrame implements KeyListener, ActionListener {
+public class VentanaRegistro extends JFrame implements KeyListener,IVistaRegistro, MouseListener {
 
 	private JPanel contentPane;
 	private JLabel TituloVentana;
@@ -150,11 +154,13 @@ public class VentanaRegistro extends JFrame implements KeyListener, ActionListen
 		this.panelTipoUsuario.add(this.LabelTipoUsuario);
 		
 		this.radioButtonEmpleado = new JRadioButton("Empleado");
+		this.radioButtonEmpleado.addMouseListener(this);
 		this.radioButtonEmpleado.addKeyListener(this);
 		buttonGroup.add(this.radioButtonEmpleado);
 		this.panelTipoUsuario.add(this.radioButtonEmpleado);
 		
 		this.radioButtonEmpleador = new JRadioButton("Empleador");
+		this.radioButtonEmpleador.addMouseListener(this);
 		this.radioButtonEmpleador.addKeyListener(this);
 		buttonGroup.add(this.radioButtonEmpleador);
 		this.panelTipoUsuario.add(this.radioButtonEmpleador);
@@ -168,11 +174,15 @@ public class VentanaRegistro extends JFrame implements KeyListener, ActionListen
 		this.panelTipoPersona.add(this.LabelTipoPersona);
 		
 		this.radioButtonPersonaFisica = new JRadioButton("Fisica");
+		this.radioButtonPersonaFisica.addMouseListener(this);
+		this.radioButtonPersonaFisica.addKeyListener(this);
 		this.radioButtonPersonaFisica.setEnabled(false);
 		buttonGroup_1.add(this.radioButtonPersonaFisica);
 		this.panelTipoPersona.add(this.radioButtonPersonaFisica);
 		
 		this.radioButtonPersonaJuridica = new JRadioButton("Juridica");
+		this.radioButtonPersonaJuridica.addMouseListener(this);
+		this.radioButtonPersonaJuridica.addKeyListener(this);
 		this.radioButtonPersonaJuridica.setEnabled(false);
 		buttonGroup_1.add(this.radioButtonPersonaJuridica);
 		this.panelTipoPersona.add(this.radioButtonPersonaJuridica);
@@ -186,16 +196,21 @@ public class VentanaRegistro extends JFrame implements KeyListener, ActionListen
 		this.panelRubro.add(this.LabelRubro);
 		
 		this.radioButtonComercioLocal = new JRadioButton("Comercio Local");
+		this.radioButtonComercioLocal.addMouseListener(this);
+		this.radioButtonComercioLocal.addKeyListener(this);
 		this.radioButtonComercioLocal.setEnabled(false);
 		buttonGroup_2.add(this.radioButtonComercioLocal);
 		this.panelRubro.add(this.radioButtonComercioLocal);
 		
 		this.radioButtonComercioInternacional = new JRadioButton("Comercio Internacional");
+		this.radioButtonComercioInternacional.addMouseListener(this);
+		this.radioButtonComercioInternacional.addKeyListener(this);
 		this.radioButtonComercioInternacional.setEnabled(false);
 		buttonGroup_2.add(this.radioButtonComercioInternacional);
 		this.panelRubro.add(this.radioButtonComercioInternacional);
 		
 		this.radioButtonSalud = new JRadioButton("Salud");
+		this.radioButtonSalud.addMouseListener(this);
 		this.radioButtonSalud.setEnabled(false);
 		buttonGroup_2.add(this.radioButtonSalud);
 		this.panelRubro.add(this.radioButtonSalud);
@@ -209,6 +224,7 @@ public class VentanaRegistro extends JFrame implements KeyListener, ActionListen
 		this.panelApellido.add(this.LabelApellido);
 		
 		this.textApellido = new JTextField();
+		this.textApellido.addKeyListener(this);
 		this.textApellido.setEnabled(false);
 		this.textApellido.setColumns(10);
 		this.panelApellido.add(this.textApellido);
@@ -222,6 +238,7 @@ public class VentanaRegistro extends JFrame implements KeyListener, ActionListen
 		this.panelTelefono.add(this.LabelTelefono);
 		
 		this.textTelefono = new JTextField();
+		this.textTelefono.addKeyListener(this);
 		this.textTelefono.setEnabled(false);
 		this.textTelefono.setColumns(10);
 		this.panelTelefono.add(this.textTelefono);
@@ -235,6 +252,7 @@ public class VentanaRegistro extends JFrame implements KeyListener, ActionListen
 		this.panelDNI.add(this.LabelDNI);
 		
 		this.textDNI = new JTextField();
+		this.textDNI.addKeyListener(this);
 		this.textDNI.setEnabled(false);
 		this.textDNI.setColumns(10);
 		this.panelDNI.add(this.textDNI);
@@ -243,24 +261,38 @@ public class VentanaRegistro extends JFrame implements KeyListener, ActionListen
 		this.panelPrincipal.add(this.panelFechaNacimiento);
 		this.panelFechaNacimiento.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		this.LabelFechaNacimiento = new JLabel("Fech Nacimiento");
+		this.LabelFechaNacimiento = new JLabel("Fech Nacimiento (dd/MM/yyyy)");
 		this.LabelFechaNacimiento.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panelFechaNacimiento.add(this.LabelFechaNacimiento);
 		
 		this.textFechaNacimiento = new JTextField();
+		this.textFechaNacimiento.addKeyListener(this);
 		this.textFechaNacimiento.setEnabled(false);
 		this.panelFechaNacimiento.add(this.textFechaNacimiento);
 		this.textFechaNacimiento.setColumns(10);
 		
 		this.BotonAceptar = new JButton("Registrarse");
-		this.BotonAceptar.addActionListener(this);
+		//this.BotonAceptar.addActionListener(this);
 		this.BotonAceptar.setEnabled(false);
 		this.contentPane.add(this.BotonAceptar, BorderLayout.SOUTH);
 	}
 
+
+// PROBLEMA CON RADIOBUTTONS TENGO UE SELECCIONARLOS Y APRETAR ENTES PARA EFECTUAR CAMBIO POR CONDICION DE KEYPRESSED	
+	//HABILITA O DESABILITA OPCIONES CON EL KEYPRESSED Y NO CON LA SELECCION DE RADIOBUTTON
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void keyPressed(KeyEvent e) {
 		
 	}
+
+	@Override
 	public void keyReleased(KeyEvent e) {
 		boolean condicion1=false; //condicion ue hay username, password y nombre
 		boolean condicion2=false; //condicion ue se selecciono empleado o empleador
@@ -271,9 +303,10 @@ public class VentanaRegistro extends JFrame implements KeyListener, ActionListen
 			condicion1=true;
 		else
 			condicion1=false;
+		//System.out.println("username y password completo "+condicion1);
 		if(this.radioButtonEmpleado.isSelected()||this.radioButtonEmpleador.isSelected())
 			condicion2=true;
-		
+		//System.out.println("tipo de empleado seleccionado "+condicion2);
 		if(this.radioButtonEmpleado.isSelected()) {
 			this.textApellido.setEnabled(true);
 			this.textTelefono.setEnabled(true);
@@ -287,6 +320,10 @@ public class VentanaRegistro extends JFrame implements KeyListener, ActionListen
 			
 			if(this.textApellido.getText().length()>0 && this.textTelefono.getText().length()>0 && this.textDNI.getText().length()>0 && this.textFechaNacimiento.getText().length()>0)
 				condicion3=true;
+			//{
+				//if(this.formatoFechaCorrecto(this.textFechaNacimiento))
+					
+			//}
 			else
 				condicion3=false;
 		}
@@ -305,17 +342,120 @@ public class VentanaRegistro extends JFrame implements KeyListener, ActionListen
 					this.radioButtonSalud.isSelected())&&(this.radioButtonPersonaFisica.isSelected()||this.radioButtonPersonaJuridica.isSelected()))
 				condicion3=true;
 		}
-		this.BotonAceptar.setEnabled(condicion1&&condicion2&&condicion3);	
+		//System.out.println("el resto completo "+condicion3);
+		this.BotonAceptar.setEnabled(condicion1&&condicion2&&condicion3);
 	}
-	public void keyTyped(KeyEvent e) {
-	}
-	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand()=="Registrarse")
-			this.registrarse();
+	
+	
+	@Override
+	public void addActionListener(ActionListener listener) {
+		this.BotonAceptar.addActionListener(listener);
+		this.radioButtonEmpleado.addActionListener(listener);
+		this.radioButtonEmpleador.addActionListener(listener);
+		this.radioButtonPersonaFisica.addActionListener(listener);
+		this.radioButtonPersonaJuridica.addActionListener(listener);
+		this.radioButtonComercioInternacional.addActionListener(listener);
+		this.radioButtonComercioLocal.addActionListener(listener);
+		this.radioButtonSalud.addActionListener(listener);
 	}
 
-	private void registrarse() {
-		//llamado al controlador para ue registre un nuevo usuario
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.textUsername.getText();
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.textPassword.getText();
+	}
+
+	@Override
+	public String getNombre() {
+		// TODO Auto-generated method stub
+		return this.textNombre.getText();
+	}
+
+	@Override
+	public JRadioButton getUsuarioTipo() {
+		JRadioButton radioButton=null;
+		if(this.radioButtonEmpleado.isSelected())
+			radioButton=this.radioButtonEmpleado;
+		else if(this.radioButtonEmpleador.isSelected())
+			radioButton=this.radioButtonEmpleador;
+		return radioButton;
+	}
+
+	@Override
+	public JRadioButton getPersonaTipo() {
+		JRadioButton radioButton=null;
+		if(this.radioButtonPersonaFisica.isSelected())
+			radioButton=this.radioButtonPersonaFisica;
+		else if(this.radioButtonPersonaJuridica.isSelected())
+			radioButton=this.radioButtonPersonaJuridica;
+		return radioButton;
+	}
+
+	@Override
+	public JRadioButton getRubro() {
+		JRadioButton radioButton=null;
+		if(this.radioButtonComercioLocal.isSelected())
+			radioButton=this.radioButtonComercioLocal;
+		else if(this.radioButtonComercioInternacional.isSelected())
+			radioButton=this.radioButtonComercioInternacional;
+		else if(this.radioButtonSalud.isSelected())
+			radioButton=this.radioButtonSalud;
+		return radioButton;
+	}
+
+	@Override
+	public String getApellido() {
+		// TODO Auto-generated method stub
+		return this.textApellido.getText();
+	}
+
+	@Override
+	public String getTelefono() {
+		// TODO Auto-generated method stub
+		return this.textTelefono.getText();
+	}
+
+	@Override
+	public String getDNI() {
+		// TODO Auto-generated method stub
+		return this.textDNI.getText();
+	}
+
+	@Override
+	public String getFechaNacimiento() {
+		// TODO Auto-generated method stub
+		return this.textFechaNacimiento.getText();
+	}
+
+	@Override
+	public void emergenteFechaIncorrecta() {
+		JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto, ingresar con el siguiente formato dd/MM/yyyy");
+		
+	}
 	
+	
+
+	public void mouseClicked(MouseEvent e) {
+	}
+	public void mouseEntered(MouseEvent e) {
+	}
+	public void mouseExited(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
+	}
+	public void mouseReleased(MouseEvent e) {
+		this.keyReleased(null);
+	}
+
+	@Override
+	public void emergenteNombreExistente() {
+		JOptionPane.showMessageDialog(this, "El nombre de usuario "+this.getUsername()+" ya esta registrado");
+		
 	}
 }

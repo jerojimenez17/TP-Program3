@@ -13,7 +13,7 @@ public abstract class Ticket {
 	private FormularioBusqueda formularioBusqueda;
 	private String estado;
 	private LocalDate fechaAlta;
-
+        private IStateTicket state;
 	public static final String ESTADO_ACTIVO = "ACTIVO";
 	public static final String ESTADO_SUSPENDIDO = "SUSPENDIDO";
 	public static final String ESTADO_CANCELADO = "CANCELADO";
@@ -24,10 +24,17 @@ public abstract class Ticket {
 		this.fechaAlta = LocalDate.now();
 		
 	}
+        
+        public IStateTicket getState(){
+            return this.state;
+        }
 
 	public String getEstado() {
 		return estado;
 	}
+        public void setState(IStateTicket state){
+           this.state=state;
+        }
 
 	public void setEstadoFinalizado() {
 		this.estado = ESTADO_FINALIZADO;
