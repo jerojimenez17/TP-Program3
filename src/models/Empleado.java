@@ -11,7 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
-public class Empleado extends Person {
+public class Empleado extends Person implements Runnable {
 	private String surname;
 	private String phone;
 	private String dni;
@@ -84,7 +84,14 @@ public class Empleado extends Person {
 		ticket.setFormulario(fb);
 	
 	}
-
+        
+        
+        @Override
+        public void run(){
+            for(int i=0;i<3;i++){
+                
+            }
+        }
 
 	@Override
 	public String toString() {

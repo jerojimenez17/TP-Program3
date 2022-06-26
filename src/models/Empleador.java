@@ -16,7 +16,6 @@ import models.Aspectos.TipoPuesto.TipoPuesto;
 
 public class Empleador extends Person implements Runnable{
 	private String rubro;
-        private int contTicketsSimplificados=0;
         private BolsaDeTrabajo bolsaTrabajo;
         private List<TicketSimplificado> myTicketsSimpl= new ArrayList<>();
 	private ArrayList<TicketEmpleador> ticketsEmitidos = new ArrayList<TicketEmpleador>();
