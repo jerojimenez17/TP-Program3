@@ -27,7 +27,6 @@ public abstract class Person extends Usuario {
 	}
 
 
-
 	public void setAsignaciones(ListaAsignaciones asignaciones) {
 		this.asignaciones = asignaciones;
 	}

@@ -25,6 +25,7 @@ public class BolsaDeTrabajo {
             }
         }
         this.ticketsSimplificados.add(ts);
+        System.out.println(this.ticketsSimplificados + "++++++++++++++++++++++++");
         avaible = true;
         notifyAll();
 
@@ -34,7 +35,7 @@ public class BolsaDeTrabajo {
         this.ticketsSimplificados = new ArrayList<>();
     }
 
-    public synchronized TicketSimplificado removeTicket(int eleccionLocacion, TicketSimplificado ts) {
+    public synchronized TicketSimplificado removeTicket(int eleccionLocacion,int eleccionTicket) {
         while (avaible == false) {
             try {
                 wait();
@@ -42,9 +43,8 @@ public class BolsaDeTrabajo {
 
             }
         }
+        TicketSimplificado   ts=  this.ticketsSimplificados.remove(eleccionTicket); 
         if (eleccionLocacion == ts.getEleccionLocacion()) {
-            this.ticketsSimplificados.remove(ts);
-
             avaible = false;
             notifyAll();
             return ts;
@@ -53,4 +53,8 @@ public class BolsaDeTrabajo {
             return null;
         }
     }
+    public synchronized List<TicketSimplificado> getListTicketsSimpl(){
+        return this.ticketsSimplificados;
+    }
+
 }

@@ -1,8 +1,5 @@
 package models;
 
-
-
-
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -29,12 +26,10 @@ public class main {
 
     public static void main(String[] args) {
         Agencia agencia = new Agencia("agencia@gsdg", "1423523");
-        
-        Empleador empleador1 = new Empleador("Empleador1", "1234", "empleador1", "Fisica", "Comercio Local",agencia.getBolsaDeTrabajo());
-  
+
+        Empleador empleador1 = new Empleador("Empleador1", "1234", "empleador1", "Fisica", "Comercio Local", agencia.getBolsaDeTrabajo());
 
         // Crear aspectos para crear el formulario de busqueda
-
         // crear aspecto de locacion
         Locacion locacionHO = new LocacionHomeOffice();
         // Este empleador le pone un peso de 10 a locacion home office 
@@ -79,62 +74,57 @@ public class main {
         // Crear formulario de busqueda
 
         // seteo el form al ticket
-
         empleador1.setFormulario(3, 0, decoratorLocacion, decoratorTipoPuesto,
                 decoratorEleccionEdad, decoratorExperiencia, decoratorEstudios, decoratorRemuneracion,
                 decoratorCargaHoraria);
-        
 
         ///////////////////////////////////////////////////////////////////////////////
         /////////////			Creo un empleado llamado Empleado1		///////////////
         ///////////////////////////////////////////////////////////////////////////////
-        
         Empleado empleado1 = new Empleado("Empleado1", "1234", "empleado1", "apellido1", "2224656", "4955151",
-                LocalDate.of(1999, 01, 01),agencia.getBolsaDeTrabajo());
+                LocalDate.of(1999, 01, 01), agencia.getBolsaDeTrabajo());
 
         ///////////////////////////////////////////////////////////////////////////////
         /////////////			Creo un ticket para el empleado 1		///////////////
         ///////////////////////////////////////////////////////////////////////////////
-        
         // El ticket del empleado no tiene un peso asignado, entonces no uso el decorator
-        TicketEmpleado ticketEmpleado1 = new TicketEmpleado(); 
-        Locacion locacionEmpleado1 = new LocacionHomeOffice(); 
-        TipoPuesto tipoPuestoEmpleado1 = new Senior(); 
-        RangoEtario rangoEmpleado1 = new EdadMenorQue(); 
-        Experiencia expEmpleado1 = new ExperienciaMedia(); 
-        Estudios estudiosEmpleado1 = new Terciario(); 
-        Remuneracion remuneracionEmpleado1 = new RemuneracionEntreV1yV2();         
-        CargaHoraria cargaEmpleado1 = new JornadaCompleta(); 
+        TicketEmpleado ticketEmpleado1 = new TicketEmpleado();
+        Locacion locacionEmpleado1 = new LocacionHomeOffice();
+        TipoPuesto tipoPuestoEmpleado1 = new Senior();
+        RangoEtario rangoEmpleado1 = new EdadMenorQue();
+        Experiencia expEmpleado1 = new ExperienciaMedia();
+        Estudios estudiosEmpleado1 = new Terciario();
+        Remuneracion remuneracionEmpleado1 = new RemuneracionEntreV1yV2();
+        CargaHoraria cargaEmpleado1 = new JornadaCompleta();
 
         ///////////////////////////////////////////////////////////////////////////////
         //////			Creo el formulario de busqueda para el empleado 1		///////
         ///////////////////////////////////////////////////////////////////////////////
-        
-        FormularioBusqueda fbEmpleado1 = new FormularioBusqueda(locacionEmpleado1, 
-        		tipoPuestoEmpleado1, 
-        		rangoEmpleado1, 
-        		expEmpleado1, 
-				estudiosEmpleado1,
-				remuneracionEmpleado1, 
-				cargaEmpleado1);
-        empleado1.setFormulario(fbEmpleado1); 
+        FormularioBusqueda fbEmpleado1 = new FormularioBusqueda(locacionEmpleado1,
+                tipoPuestoEmpleado1,
+                rangoEmpleado1,
+                expEmpleado1,
+                estudiosEmpleado1,
+                remuneracionEmpleado1,
+                cargaEmpleado1);
+        empleado1.setFormulario(fbEmpleado1);
 
         ///////////////////////////////////////////////////////////////////////////////
         //////			Agrego el empleador1 y el empleado1 a la agencia		///////
         ///////////////////////////////////////////////////////////////////////////////
         agencia.addEmpleado(empleado1);
         agencia.addEmpleador(empleador1);
-        
+
         ///////////////////////////////////////////////////////////////////////////////
         //////					Inicializamos la ronda de encuentros			///////
         ///////////////////////////////////////////////////////////////////////////////
         agencia.iniciarRondaEncuentros();
-        
+
         ///////////////////////////////////////////////////////////////////////////////
         //////	Obtengo las asignaciones con sus puntajes para el empleado1		///////
         ///////////////////////////////////////////////////////////////////////////////
         System.out.println(agencia.getAsignaciones(empleado1));
-        
+
         ///////////////////////////////////////////////////////////////////////////////
         //////	Obtengo las asignaciones con sus puntajes para el empleador1	///////
         ///////////////////////////////////////////////////////////////////////////////
@@ -146,74 +136,83 @@ public class main {
         ///////////////////////////////////////////////////////////////////////////////
         empleador1.inicarRondaElecciones();
         empleado1.inicarRondaElecciones();
-        
+
         agencia.IniciarRondaContratacion();
         agencia.setPuntaje(empleado1);
         agencia.setPuntaje(empleador1);
-        
-       System.out.println("///////hay tantas contrataciones: "+agencia.getContrataciones().size());
-        
-        
+
+        System.out.println("///////hay tantas contrataciones: " + agencia.getContrataciones().size());
+
         agencia.comision();
 //        System.out.println(empleador1.getTickets().toArray()[0]);
 //        System.out.println(empleado1.getTicket());
-        
+
         System.out.println(empleado1.getTicket().getState().toString());
         System.out.println(empleador1.getTickets().get(0).getState().toString());
-        
-        
-        PersistenciaBinariaAgencia persistencia=new PersistenciaBinariaAgencia();
-        persistir(persistencia,agencia);
-        agencia=null;
-        agencia=despersistir(persistencia);
-        
+
+        PersistenciaBinariaAgencia persistencia = new PersistenciaBinariaAgencia();
+        persistir(persistencia, agencia);
+        agencia = null;
+        agencia = despersistir(persistencia);
+
         System.out.println(agencia.getUsername());
-		System.out.println("**************EMPLEADOS*****************");
-		for(Empleado e: agencia.getEmpleados())
-			System.out.println(e);
-		System.out.println("**************EMPLEADORES*****************");
-		for(Empleador e: agencia.getEmpleadores())
-			System.out.println(e);
-		System.out.println("**************ENTREVISTAS*****************");
-		for(Entrevista e: agencia.getEntrevistas())
-			System.out.println(e);
-		System.out.println("**************CONTRATACIONES*****************");
-		if(!agencia.getContrataciones().isEmpty())
-			for(Contratacion c: agencia.getContrataciones())
-				System.out.println(c);
-			
+        System.out.println("**************EMPLEADOS*****************");
+        for (Empleado e : agencia.getEmpleados()) {
+            System.out.println(e);
+        }
+        System.out.println("**************EMPLEADORES*****************");
+        for (Empleador e : agencia.getEmpleadores()) {
+            System.out.println(e);
+        }
+        System.out.println("**************ENTREVISTAS*****************");
+        for (Entrevista e : agencia.getEntrevistas()) {
+            System.out.println(e);
+        }
+        System.out.println("**************CONTRATACIONES*****************");
+        if (!agencia.getContrataciones().isEmpty()) {
+            for (Contratacion c : agencia.getContrataciones()) {
+                System.out.println(c);
+            }
+        }
+        empleador1.generarTicketSimplificado(2, 0, empleado1);
+        Thread h1 = new Thread(empleador1);
+        Thread h2 = new Thread(empleado1);
+        Observador_VentanaThread ob1 = new Observador_VentanaThread();
+        ob1.agregarObservable(empleador1);
+        ob1.agregarObservable(empleado1);
+
     }
-    
-    public static void persistir(PersistenciaBinariaAgencia persistencia,Agencia agencia) {
-		try {
-			persistencia.abrirOutput("Agencia.bin");
-			persistencia.escribir(agencia);
-			persistencia.cerrarOutput();
-			System.out.println("Se persistio agencia");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}		
-				
+
+    public static void persistir(PersistenciaBinariaAgencia persistencia, Agencia agencia) {
+        try {
+            persistencia.abrirOutput("Agencia.bin");
+            persistencia.escribir(agencia);
+            persistencia.cerrarOutput();
+            System.out.println("Se persistio agencia");
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
     }
-    
+
     public static Agencia despersistir(PersistenciaBinariaAgencia persistencia) {
-    	Agencia agencia=null;
-    	try {
-    		
-			persistencia.abrirInput("Agencia.bin");
-			agencia=(Agencia)persistencia.leer();
-			persistencia.cerrarInput();
-			System.out.println("Se despersistio agencia");
-			
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-    	return agencia;
+        Agencia agencia = null;
+        try {
+
+            persistencia.abrirInput("Agencia.bin");
+            agencia = (Agencia) persistencia.leer();
+            persistencia.cerrarInput();
+            System.out.println("Se despersistio agencia");
+
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (ClassNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        return agencia;
     }
 
 }
