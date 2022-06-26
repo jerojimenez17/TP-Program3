@@ -17,16 +17,18 @@ public class Empleado extends Person {
 	private String dni;
 	private LocalDate bornDate;
 	private TicketEmpleado ticket;
+        private BolsaDeTrabajo bolsaDeTrabajo;
 
 
 	public Empleado(String username, String password, String name, String surname, String phone, String dni,
-			LocalDate bornDate) {
+			LocalDate bornDate,BolsaDeTrabajo bolsaDeTrabajo) {
 		super(username, password, name, PERSONA_FISICA);
 		this.surname = surname;
 		this.phone = phone;
 		this.dni = dni;
 		this.bornDate = bornDate;
 		this.ticket = new TicketEmpleado();
+                this.bolsaDeTrabajo = bolsaDeTrabajo;
 	}
 
 	@Override

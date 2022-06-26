@@ -3,8 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import modelo.Agencia;
-import modelo.Ticket;
+import models.Agencia;
+import models.Ticket;
 import vista.IVistaFormulario;
 
 public class ControladorVentanaFormulario implements ActionListener{

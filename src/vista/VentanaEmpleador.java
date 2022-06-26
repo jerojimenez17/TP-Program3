@@ -19,8 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import modelo.Empleado;
-import modelo.TicketEmpleador;
+import models.Empleado;
+import models.TicketEmpleador;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 

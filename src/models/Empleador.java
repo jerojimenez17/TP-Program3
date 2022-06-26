@@ -14,14 +14,18 @@ import models.Aspectos.RangoEtario.RangoEtario;
 import models.Aspectos.Remuneracion.Remuneracion;
 import models.Aspectos.TipoPuesto.TipoPuesto;
 
-public class Empleador extends Person {
+public class Empleador extends Person implements Runnable{
 	private String rubro;
+        private int contTicketsSimplificados=0;
+        private BolsaDeTrabajo bolsaTrabajo;
+        private List<TicketSimplificado> myTicketsSimpl= new ArrayList<>();
 	private ArrayList<TicketEmpleador> ticketsEmitidos = new ArrayList<TicketEmpleador>();
 
 	public Empleador(String nombreUsuario, String contrasena, String nombreRazonSocial, String tipoPersona,
-			String rubro) {
+			String rubro,BolsaDeTrabajo listBolsaTrabajo) {
 		super(nombreUsuario, contrasena, nombreRazonSocial, tipoPersona);
 		this.rubro = rubro;
+                this.bolsaTrabajo=listBolsaTrabajo;
 	}
 
 	public String getRubro() {
@@ -65,7 +69,19 @@ public class Empleador extends Person {
 		this.ticketsEmitidos.add(ticket);
 	
 	}
-
+        //METODO GENERA TICKET SIMPLIFICADO
+        public void generarTicketSimplificado(int eleccionTipoTrabajo,int eleccionLocacion,Empleado empleado){
+            if(myTicketsSimpl.size() <3){
+                this.myTicketsSimpl.add(new TicketSimplificado(eleccionTipoTrabajo,eleccionLocacion,this));
+                
+            }
+        }
+        @Override
+        public void run(){
+            myTicketsSimpl.forEach(ts -> {
+                bolsaTrabajo.addTicket(ts);
+            });
+        }
 	@Override
 	public String toString() {
 		return super.getName() + "\nRubro: " + getRubro();

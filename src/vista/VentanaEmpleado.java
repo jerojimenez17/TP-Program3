@@ -18,8 +18,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import modelo.Empleador;
-import modelo.TicketEmpleado;
+import models.Empleador;
+import models.TicketEmpleado;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 

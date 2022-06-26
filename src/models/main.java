@@ -30,7 +30,7 @@ public class main {
     public static void main(String[] args) {
         Agencia agencia = new Agencia("agencia@gsdg", "1423523");
         
-        Empleador empleador1 = new Empleador("Empleador1", "1234", "empleador1", "Fisica", "Comercio Local");
+        Empleador empleador1 = new Empleador("Empleador1", "1234", "empleador1", "Fisica", "Comercio Local",agencia.getBolsaDeTrabajo());
   
 
         // Crear aspectos para crear el formulario de busqueda
@@ -90,7 +90,7 @@ public class main {
         ///////////////////////////////////////////////////////////////////////////////
         
         Empleado empleado1 = new Empleado("Empleado1", "1234", "empleado1", "apellido1", "2224656", "4955151",
-                LocalDate.of(1999, 01, 01));
+                LocalDate.of(1999, 01, 01),agencia.getBolsaDeTrabajo());
 
         ///////////////////////////////////////////////////////////////////////////////
         /////////////			Creo un ticket para el empleado 1		///////////////

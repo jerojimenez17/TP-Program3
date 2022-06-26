@@ -1,8 +1,10 @@
 package models;
 
+import exceptions.ContrasenaIncorrectaException;
+import exceptions.NoSeEncontroUsuarioException;
+import exceptions.NombreExistenteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Agencia extends Usuario {
@@ -20,6 +22,9 @@ public class Agencia extends Usuario {
 	protected static final String EDAD_MENOR = "Menor de 30";
 	protected static final String EDAD_MEDIO = "Entre 30 y 50";
 	protected static final String EDAD_MAYOR = "Mayor de 50";
+        
+        private BolsaDeTrabajo bolsaDeTrabajo;
+        
 
 	public Agencia(String userName, String password) {
 		super(userName, password);
@@ -29,6 +34,7 @@ public class Agencia extends Usuario {
 		this.ticketsEmpleadores= new ArrayList<>();
 		this.ticketsEmpleados= new ArrayList<>();
 		this.entrevistas= new ArrayList<>();
+                this.bolsaDeTrabajo= new BolsaDeTrabajo();
 	}
 	
 	public void addEmpleador(Empleador e) {
@@ -37,6 +43,9 @@ public class Agencia extends Usuario {
 	public void addEmpleado(Empleado e) {
 		empleados.add(e);
 	}
+        public BolsaDeTrabajo getBolsaDeTrabajo(){
+            return this.bolsaDeTrabajo;
+        }
 	
 	public List<Empleador> getEmpleadores(){
 		return empleadores;
@@ -222,7 +231,7 @@ public class Agencia extends Usuario {
 					throw new ContrasenaIncorrectaException("Contrasena incorrecta, no se pudo logear");//System.out.println("Contrasena incorrecta, no se pudo logear");//TIRAR EXCEPTION
 			
 			return empleado;
-		}
+		} 
 		//LOGIN USUARIO EMPLEADOR CON EXCEPTIONS DE LOGIN
 		public Empleador loginEmpleador(String username,String password)throws NoSeEncontroUsuarioException, ContrasenaIncorrectaException {
 			Empleador empleador=null;

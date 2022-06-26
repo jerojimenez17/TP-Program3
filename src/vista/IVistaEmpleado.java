@@ -3,7 +3,7 @@ package vista;
 import javax.swing.DefaultListModel;
 import javax.swing.JRadioButton;
 
-import modelo.Empleador;
+import models.Empleador;
 
 public interface IVistaEmpleado {
 	JRadioButton getRButtonActivar();
