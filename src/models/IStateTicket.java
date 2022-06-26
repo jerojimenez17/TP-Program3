@@ -4,11 +4,13 @@
  */
 package models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author JeroJimenez
  */
-public interface IStateTicket {
+public interface IStateTicket extends Serializable {
    public void activar();
    public void pausar();
    public void cancelar();

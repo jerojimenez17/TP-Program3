@@ -17,7 +17,7 @@ public class Empleado extends Person implements Runnable {
 	private String dni;
 	private LocalDate bornDate;
 	private TicketEmpleado ticket;
-        private BolsaDeTrabajo bolsaDeTrabajo;
+        private transient BolsaDeTrabajo bolsaDeTrabajo;
 
 
 	public Empleado(String username, String password, String name, String surname, String phone, String dni,
