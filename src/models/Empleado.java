@@ -18,6 +18,7 @@ public class Empleado extends Person implements Runnable {
 	private LocalDate bornDate;
 	private TicketEmpleado ticket;
         private transient BolsaDeTrabajo bolsaDeTrabajo;
+        private int eleccionLocacion=0; 
 
 
 	public Empleado(String username, String password, String name, String surname, String phone, String dni,
@@ -64,6 +65,10 @@ public class Empleado extends Person implements Runnable {
 	public TicketEmpleado getTicket() {
 		return ticket;
 	}
+        //metodo para elejir locacion en ticketsSimplificados, por defecto HomeOffice
+        public void setEleccionLocacion(int elec){
+            this.eleccionLocacion=elec;
+        }
 
 	public void setTicket(TicketEmpleado ticket) {
 		this.ticket = ticket;
@@ -98,10 +103,16 @@ public class Empleado extends Person implements Runnable {
         
         @Override
         public void run(){
-            for(int i=0;i<3;i++){
-                
+            int i=0;
+            TicketSimplificado aux=null;
+            while(i<3 && aux==null ){
+                aux = bolsaDeTrabajo.removeTicket(eleccionLocacion,i); //Elijo ticket, arbitrariamente los primeros tres 
+            }
+            if(i<3){
+                notifyObservers();
             }
         }
+
 
 	@Override
 	public String toString() {

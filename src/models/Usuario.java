@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Observable;
 
 
-public class Usuario implements Serializable{
+public class Usuario extends Observable implements Serializable{
 	private String username;
 	private String password;
 	private transient List<Contratacion> contrataciones;
@@ -45,7 +45,7 @@ public class Usuario implements Serializable{
 	public String getUsername() {
 		return username;
 	}
-
+        
 	public String toString() {
 		return "Nombre de usuario: " + this.getUsername() + "\n";
 	}
