@@ -3,23 +3,15 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.Aspectos.DecoratorAspecto;
-import models.Aspectos.DecoratorAspectoPeso;
 import models.Aspectos.IAspectos;
-import models.Aspectos.CargaHoraria.CargaHoraria;
-import models.Aspectos.Estudios.Estudios;
-import models.Aspectos.Experiencia.Experiencia;
-import models.Aspectos.Locacion.Locacion;
-import models.Aspectos.RangoEtario.RangoEtario;
-import models.Aspectos.Remuneracion.Remuneracion;
-import models.Aspectos.TipoPuesto.TipoPuesto;
 
-public class Empleador extends Person {
+public class Empleador extends Person implements Runnable {
 	private String rubro;
         private transient BolsaDeTrabajo bolsaTrabajo;
         private transient List<TicketSimplificado> myTicketsSimpl= new ArrayList<>();
 	private ArrayList<TicketEmpleador> ticketsEmitidos = new ArrayList<TicketEmpleador>();
-
+      
+      
 	public Empleador(String nombreUsuario, String contrasena, String nombreRazonSocial, String tipoPersona,
 			String rubro,BolsaDeTrabajo listBolsaTrabajo) {
 		super(nombreUsuario, contrasena, nombreRazonSocial, tipoPersona);
@@ -68,6 +60,23 @@ public class Empleador extends Person {
 		this.ticketsEmitidos.add(ticket);
 	
 	}
+        //METODO GENERA TICKET SIMPLIFICADO
+
+    public void generarTicketSimplificado(int eleccionTipoTrabajo, int eleccionLocacion, Empleado empleado) {
+        if (myTicketsSimpl.size() < 3) {
+            this.myTicketsSimpl.add(new TicketSimplificado(eleccionTipoTrabajo, eleccionLocacion, this));
+            System.out.println(myTicketsSimpl);
+
+        }
+    }
+
+    @Override
+    public void run() {
+        myTicketsSimpl.forEach(ts -> {
+            bolsaTrabajo.addTicket(ts);
+            this.notifyObservers(ts);
+        });
+    }
        
 	@Override
 	public String toString() {
