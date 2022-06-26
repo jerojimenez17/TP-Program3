@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
 
+import javax.swing.JRadioButton;
+
 import models.Agencia;
 import models.Empleado;
 import models.Entrevista;
@@ -34,11 +36,16 @@ public class ControladorVentanaEmpleado implements ActionListener{
 			//abriendo ventana para crear formulario
 		}
 		else if(e.getActionCommand().equals("Modificar")) {
-			//tomar radiobutton seleccionado y pasar su texto en una funcion de la agencia para modificar ticket
-			//pasando empleado y text del radio button(estado)
+			JRadioButton rb=this.vista.getRButtonEstado();
+			if(rb.getText().equals("Suspender"))
+				this.empleado.getTicket().setEstadoSuspendido();
+			else if(rb.getText().equals("Cancelar"))
+				this.empleado.getTicket().setEstadoCancelado();
+			else if(rb.getText().equals("Activar"))
+				this.empleado.getTicket().setEstadoActivo();
 		}
 		else if(e.getActionCommand().equals("Elegir")) {
-			//tomar elemento seleccionado de la lista y hacer llamado a funcion elegir
+			this.empleado.elegir(this.vista.getSelectedValue());
 		}
 	}
 	

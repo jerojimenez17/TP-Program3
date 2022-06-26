@@ -19,6 +19,13 @@ public abstract class Person extends Usuario {
 		this.type = type;
 		this.puntaje = 0;
 	}
+	
+	public Person(String username, String password, String name, String type,double puntaje) {
+		super(username, password);
+		this.name = name;
+		this.type = type;
+		this.puntaje=puntaje;
+	}
 	public abstract boolean isEmpleado();
 	
 	
@@ -75,4 +82,9 @@ public abstract class Person extends Usuario {
 				: "Razon Social: " + getName();
 		return super.toString() + nombre + "\nPersona: " + getType() + "\nPuntuacion: " + getPuntaje();
 	}
+	
+	
+	
+		
+	
 }
