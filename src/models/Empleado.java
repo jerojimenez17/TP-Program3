@@ -30,6 +30,16 @@ public class Empleado extends Person implements Runnable {
 		this.ticket = new TicketEmpleado();
                 this.bolsaDeTrabajo = bolsaDeTrabajo;
 	}
+	public Empleado(String username, String password, String name,double puntaje, String surname, String phone, String dni,
+			LocalDate bornDate) {
+		super(username, password, name, PERSONA_FISICA);
+		this.surname = surname;
+		this.phone = phone;
+		this.dni = dni;
+		this.bornDate = bornDate;
+		this.ticket = new TicketEmpleado();
+	}
+	
 
 	@Override
 	public boolean isEmpleado() {
@@ -99,4 +109,13 @@ public class Empleado extends Person implements Runnable {
 				+ "\nFecha Nacimiento: " + getBornDate();// + "\nTicket generado: " + getTicket().toString();
 	}
 
+	//el empleado solo tiene una eleccion por eso la guardo en la posicion 0
+	public void elegir(Empleador empleador) {
+		int i=0;
+		while(i<this.getAsignaciones().getList().size() &&!this.getAsignaciones().getList().get(i).contieneUsuario(empleador)&& !this.getAsignaciones().getList().get(i).contieneUsuario(this)) {
+			i++;
+		}
+		if(i<this.getAsignaciones().getList().size())
+			this.getElecciones().add(0, this.getAsignaciones().getList().get(i));
+	}
 }

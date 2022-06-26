@@ -5,6 +5,7 @@ package models;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import models.Aspectos.DecoratorAspecto;
 import models.Aspectos.DecoratorAspectoPeso;
@@ -24,6 +25,7 @@ import models.Aspectos.Remuneracion.RemuneracionEntreV1yV2;
 import models.Aspectos.TipoPuesto.Senior;
 import models.Aspectos.TipoPuesto.TipoPuesto;
 import persistencia.PersistenciaBinariaAgencia;
+import persistencia.PersistenciaEmpleadosXML;
 
 public class main {
 
@@ -178,10 +180,20 @@ public class main {
 		for(Entrevista e: agencia.getEntrevistas())
 			System.out.println(e);
 		System.out.println("**************CONTRATACIONES*****************");
-		if(!agencia.getContrataciones().isEmpty())
-			for(Contratacion c: agencia.getContrataciones())
-				System.out.println(c);
-			
+		//if(!agencia.getContrataciones().isEmpty())
+		//	for(Contratacion c: agencia.getContrataciones())
+		//		System.out.println(c);
+		
+		System.out.println("******************************************************************");
+		PersistenciaEmpleadosXML persistenciaEmpleadosXML=new PersistenciaEmpleadosXML();
+
+		persistenciaEmpleadosXML.serializeToXML(agencia.getEmpleados());
+		System.out.println("se genero bien el XML");
+		
+		List<Empleado> empleadosRecuperados=persistenciaEmpleadosXML.deserializedFromXML();
+		
+		for(Empleado e:empleadosRecuperados)
+			System.out.println(e);
     }
     
     public static void persistir(PersistenciaBinariaAgencia persistencia,Agencia agencia) {

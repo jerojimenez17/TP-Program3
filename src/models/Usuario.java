@@ -3,11 +3,13 @@ package models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+
 
 public class Usuario implements Serializable{
 	private String username;
 	private String password;
-	private List<Contratacion> contrataciones;
+	private transient List<Contratacion> contrataciones;
 	
 
 	public Usuario(String username, String password) {
@@ -46,5 +48,9 @@ public class Usuario implements Serializable{
 
 	public String toString() {
 		return "Nombre de usuario: " + this.getUsername() + "\n";
+	}
+	
+	public String getPassword() {
+		return this.password;
 	}
 }
