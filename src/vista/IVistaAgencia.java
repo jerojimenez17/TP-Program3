@@ -4,8 +4,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
 
-import modelo.Empleado;
-import modelo.Empleador;
+import models.Empleado;
+import models.Empleador;
 
 public interface IVistaAgencia {
 	

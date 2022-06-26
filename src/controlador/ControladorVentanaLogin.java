@@ -7,9 +7,9 @@ import javax.swing.JRadioButton;
 
 import exceptions.ContrasenaIncorrectaException;
 import exceptions.NoSeEncontroUsuarioException;
-import modelo.Agencia;
-import modelo.Empleado;
-import modelo.Empleador;
+import models.Agencia;
+import models.Empleado;
+import models.Empleador;
 import vista.IVistaLogin;
 import vista.VentanaAgencia;
 import vista.VentanaEmpleado;

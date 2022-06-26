@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
 
-import modelo.Agencia;
-import modelo.Empleado;
-import modelo.Entrevista;
+import models.Agencia;
+import models.Empleado;
+import models.Entrevista;
 import vista.IVistaEmpleado;
 
 public class ControladorVentanaEmpleado implements ActionListener{

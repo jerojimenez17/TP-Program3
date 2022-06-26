@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JRadioButton;
 
 import exceptions.NombreExistenteException;
-import modelo.Agencia;
-import modelo.Empleado;
-import modelo.Empleador;
+import models.Agencia;
+import models.Empleado;
+import models.Empleador;
 import vista.IVistaRegistro;
 import vista.VentanaInicial2;
 import vista.VentanaRegistro;
@@ -34,7 +34,7 @@ public class ControladorVentanaRegistro implements ActionListener {
 				//System.out.println("BOTON REGISTRARSE COMO USUARIO EMPLEADO");
 				if(this.formatoFechaCorrecto(this.vista.getFechaNacimiento())) {//formato correcto deberia estar aca o en agencia?
 					Empleado empleado=new Empleado(this.vista.getUsername(),this.vista.getPassword(),this.vista.getNombre(),
-							this.vista.getApellido(),this.vista.getTelefono(),this.vista.getDNI(),LocalDate.parse(this.vista.getFechaNacimiento(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+							this.vista.getApellido(),this.vista.getTelefono(),this.vista.getDNI(),LocalDate.parse(this.vista.getFechaNacimiento(), DateTimeFormatter.ofPattern("dd/MM/yyyy")),this.agencia.getBolsaDeTrabajo());
 					try {
 						this.agencia.empleadoValido(empleado);
 						VentanaInicial2 ventanaLogin=new VentanaInicial2();
@@ -51,7 +51,7 @@ public class ControladorVentanaRegistro implements ActionListener {
 				}	
 			} else if (radioButtonUsuario.getText().equals("Empleador")) {
 					Empleador empleador=new Empleador(this.vista.getUsername(),this.vista.getPassword(),this.vista.getNombre(),
-							this.vista.getPersonaTipo().getText(),this.vista.getRubro().getText());
+							this.vista.getPersonaTipo().getText(),this.vista.getRubro().getText(),this.agencia.getBolsaDeTrabajo());
 					try {
 						this.agencia.empleadorValido(empleador);
 						VentanaInicial2 ventanaLogin=new VentanaInicial2();

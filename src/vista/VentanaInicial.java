@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,9 +16,6 @@ import javax.swing.JRadioButton;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.FlowLayout;
-import java.awt.CardLayout;
 
 public class VentanaInicial extends JFrame implements KeyListener, IVistaLogin {
 
@@ -28,6 +24,16 @@ public class VentanaInicial extends JFrame implements KeyListener, IVistaLogin {
 	private JPanel panelIz;
 	private JPanel panelUsername;
 	private JPanel panelPassword;
+
+    @Override
+    public void emergenteUsuario(String comentario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void emergenteContrasena() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 	private JPanel panel_2;
 	private JLabel LabelUsername;
 	private JLabel LabelPassword;
