@@ -83,4 +83,22 @@ public class Empleador extends Person implements Runnable {
 		return super.getName() + "\nRubro: " + getRubro();
 	}
 
+	
+	public void elegir(Empleado empleado,TicketEmpleador ticket) {
+		int i=0;
+		while(i<this.getAsignaciones().getList().size() &&!this.getAsignaciones().getList().get(i).contieneUsuario(empleado)&& !this.getAsignaciones().getList().get(i).contieneUsuario(this)
+				&& !this.getTicketsEmitidos().contains(ticket)) {
+			i++;
+		}
+		if(i<this.getAsignaciones().getList().size())
+			if(ticket.getCantidadSolicitados()-ticket.getCantidadObtenidos()<this.getElecciones().size())
+				this.getElecciones().add(this.getElecciones().size()+1, this.getAsignaciones().getList().get(i));
+			else {
+				this.getElecciones().clear();
+				this.getElecciones().add(0, this.getAsignaciones().getList().get(i));
+			}
+	}
+	
+	
+
 }

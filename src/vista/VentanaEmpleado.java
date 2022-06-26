@@ -229,4 +229,19 @@ public class VentanaEmpleado extends JFrame implements IVistaEmpleado, MouseList
 	public DefaultListModel<Empleador> getModeloLista() {
 		return this.modeloLista;
 	}
+
+	@Override
+	public JRadioButton getRButtonEstado() {
+		JRadioButton rb=null;
+		if(this.rdbtnActivar.isSelected())
+			rb=this.rdbtnActivar;
+		else if(this.rdbtnCancelar.isSelected())
+			rb=this.rdbtnCancelar;
+		else if(this.rdbtnSuspender.isSelected())
+			rb=this.rdbtnSuspender;
+		return rb;
+	}
+	public Empleador getSelectedValue() {
+		return this.listEmpleadores.getSelectedValue();
+	}
 }

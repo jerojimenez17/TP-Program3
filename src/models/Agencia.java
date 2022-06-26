@@ -128,10 +128,12 @@ public class Agencia extends Usuario {
 		Contratacion contratacion=new Contratacion(e.getTicketEmpleador(),e.getEmpleador(),e.getEmpleado(),sueldoAcordado);
 		e.getEmpleado().addContratacion(contratacion);
 		e.getEmpleador().addContratacion(contratacion);
+		System.out.println(contratacion);
 System.out.println("///////hay tantas contrataciones: "+this.getContrataciones().size());
 		this.contrataciones.add(contratacion);
+		
 System.out.println("///////hay tantas contrataciones: "+this.getContrataciones().size());
-        
+      //  System.out.println(e.getEmpleado().getContrataciones().size());
 		
 	System.out.println("************************"+contratacion);
 		e.getTicketEmpleador().addEmpleadoObtenido();
