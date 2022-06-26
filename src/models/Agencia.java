@@ -1,20 +1,22 @@
 package models;
 
-import exceptions.ContrasenaIncorrectaException;
-import exceptions.NoSeEncontroUsuarioException;
-import exceptions.NombreExistenteException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.ContrasenaIncorrectaException;
+import exceptions.NoSeEncontroUsuarioException;
+import exceptions.NombreExistenteException;
+
 public class Agencia extends Usuario {
-	private String rangoLaboral;
+	private transient String rangoLaboral;
 	private List<Empleado> empleados;
 	protected static final String[] tiposPuesto = { "Junior", "Senior", "Management" };
 	private List<Empleador> empleadores ;
-	private List<TicketEmpleador> ticketsEmpleadores ;
-	private List<TicketEmpleado> ticketsEmpleados ;
-	protected static List<Entrevista> entrevistas ;
+	private transient List<TicketEmpleador> ticketsEmpleadores ;
+	private transient List<TicketEmpleado> ticketsEmpleados ;
+	protected  List<Entrevista> entrevistas ;//saco static
 	private List<Contratacion> contrataciones ;
 	protected static final int RANGO_ETARIO_INF = 30;
 	protected static final int RANGO_ETARIO_SUP = 50;
@@ -23,7 +25,7 @@ public class Agencia extends Usuario {
 	protected static final String EDAD_MEDIO = "Entre 30 y 50";
 	protected static final String EDAD_MAYOR = "Mayor de 50";
         
-        private BolsaDeTrabajo bolsaDeTrabajo;
+        private transient BolsaDeTrabajo bolsaDeTrabajo;
         
 
 	public Agencia(String userName, String password) {
@@ -54,6 +56,10 @@ public class Agencia extends Usuario {
 		return empleados;
 	}
 	
+
+	public List<Entrevista> getEntrevistas() {
+		return entrevistas;
+	}
 
 	public void iniciarRondaEncuentros() {
 		for (Empleador empleador : empleadores) {
@@ -122,7 +128,12 @@ public class Agencia extends Usuario {
 		Contratacion contratacion=new Contratacion(e.getTicketEmpleador(),e.getEmpleador(),e.getEmpleado(),sueldoAcordado);
 		e.getEmpleado().addContratacion(contratacion);
 		e.getEmpleador().addContratacion(contratacion);
+System.out.println("///////hay tantas contrataciones: "+this.getContrataciones().size());
 		this.contrataciones.add(contratacion);
+System.out.println("///////hay tantas contrataciones: "+this.getContrataciones().size());
+        
+		
+	System.out.println("************************"+contratacion);
 		e.getTicketEmpleador().addEmpleadoObtenido();
 		if(e.getTicketEmpleador().getState().toString() == "finalizado") {
 			e.getEmpleador().modificarPuntaje(50);

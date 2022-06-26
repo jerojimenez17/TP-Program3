@@ -3,8 +3,8 @@ package models;
 
 
 
+import java.io.IOException;
 import java.time.LocalDate;
-
 
 import models.Aspectos.DecoratorAspecto;
 import models.Aspectos.DecoratorAspectoPeso;
@@ -16,7 +16,6 @@ import models.Aspectos.Experiencia.Experiencia;
 import models.Aspectos.Experiencia.ExperienciaMedia;
 import models.Aspectos.Locacion.Locacion;
 import models.Aspectos.Locacion.LocacionHomeOffice;
-import models.Aspectos.Locacion.LocacionPresencial;
 import models.Aspectos.RangoEtario.EdadEntreV1yV2;
 import models.Aspectos.RangoEtario.EdadMenorQue;
 import models.Aspectos.RangoEtario.RangoEtario;
@@ -24,6 +23,7 @@ import models.Aspectos.Remuneracion.Remuneracion;
 import models.Aspectos.Remuneracion.RemuneracionEntreV1yV2;
 import models.Aspectos.TipoPuesto.Senior;
 import models.Aspectos.TipoPuesto.TipoPuesto;
+import persistencia.PersistenciaBinariaAgencia;
 
 public class main {
 
@@ -124,12 +124,12 @@ public class main {
         ///////////////////////////////////////////////////////////////////////////////
         agencia.addEmpleado(empleado1);
         agencia.addEmpleador(empleador1);
-
+        
         ///////////////////////////////////////////////////////////////////////////////
         //////					Inicializamos la ronda de encuentros			///////
         ///////////////////////////////////////////////////////////////////////////////
         agencia.iniciarRondaEncuentros();
- 
+        
         ///////////////////////////////////////////////////////////////////////////////
         //////	Obtengo las asignaciones con sus puntajes para el empleado1		///////
         ///////////////////////////////////////////////////////////////////////////////
@@ -151,9 +151,69 @@ public class main {
         agencia.setPuntaje(empleado1);
         agencia.setPuntaje(empleador1);
         
+       System.out.println("///////hay tantas contrataciones: "+agencia.getContrataciones().size());
+        
+        
         agencia.comision();
 //        System.out.println(empleador1.getTickets().toArray()[0]);
 //        System.out.println(empleado1.getTicket());
+        
+        System.out.println(empleado1.getTicket().getState().toString());
+        System.out.println(empleador1.getTickets().get(0).getState().toString());
+        
+        
+        PersistenciaBinariaAgencia persistencia=new PersistenciaBinariaAgencia();
+        persistir(persistencia,agencia);
+        agencia=null;
+        agencia=despersistir(persistencia);
+        
+        System.out.println(agencia.getUsername());
+		System.out.println("**************EMPLEADOS*****************");
+		for(Empleado e: agencia.getEmpleados())
+			System.out.println(e);
+		System.out.println("**************EMPLEADORES*****************");
+		for(Empleador e: agencia.getEmpleadores())
+			System.out.println(e);
+		System.out.println("**************ENTREVISTAS*****************");
+		for(Entrevista e: agencia.getEntrevistas())
+			System.out.println(e);
+		System.out.println("**************CONTRATACIONES*****************");
+		if(!agencia.getContrataciones().isEmpty())
+			for(Contratacion c: agencia.getContrataciones())
+				System.out.println(c);
+			
+    }
+    
+    public static void persistir(PersistenciaBinariaAgencia persistencia,Agencia agencia) {
+		try {
+			persistencia.abrirOutput("Agencia.bin");
+			persistencia.escribir(agencia);
+			persistencia.cerrarOutput();
+			System.out.println("Se persistio agencia");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
+				
+    }
+    
+    public static Agencia despersistir(PersistenciaBinariaAgencia persistencia) {
+    	Agencia agencia=null;
+    	try {
+    		
+			persistencia.abrirInput("Agencia.bin");
+			agencia=(Agencia)persistencia.leer();
+			persistencia.cerrarInput();
+			System.out.println("Se despersistio agencia");
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	return agencia;
     }
 
 }
