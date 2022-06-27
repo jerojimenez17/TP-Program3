@@ -238,12 +238,13 @@ public class VentanaEmpleado extends JFrame implements IVistaEmpleado, MouseList
 		// TODO Auto-generated method stub
 		
 	}
-
+//hola
 	@Override
 	public void addActionListener(ActionListener listener) {
 		this.btnCrearTicket.addActionListener(listener);
 		this.btnElegir.addActionListener(listener);
 		this.btnModificarTicket.addActionListener(listener);
+		
 		
 	}
 }
