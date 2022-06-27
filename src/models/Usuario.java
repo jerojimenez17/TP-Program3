@@ -4,13 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
-
-public class Usuario extends Observable implements Serializable{
+public class Usuario extends Observable implements Serializable {
 	private String username;
 	private String password;
 	private transient List<Contratacion> contrataciones;
-	
 
 	public Usuario(String username, String password) {
 		this.username = username;
@@ -34,22 +33,24 @@ public class Usuario extends Observable implements Serializable{
 				this.password.toLowerCase().equals(((Usuario) anotherUser).password.toLowerCase());
 
 	}
-	
+
 	public void addContratacion(Contratacion contratacion) {
-		this.contrataciones.add(contratacion);	
+		this.contrataciones.add(contratacion);
 	}
-	public List<Contratacion> getContrataciones(){
-		return this.contrataciones;
+
+	public List<Contratacion> getContrataciones() {
+		List<Contratacion> contrata = this.contrataciones;
+		return contrata;
 	}
 
 	public String getUsername() {
 		return username;
 	}
-        
+
 	public String toString() {
 		return "Nombre de usuario: " + this.getUsername() + "\n";
 	}
-	
+
 	public String getPassword() {
 		return this.password;
 	}

@@ -13,20 +13,20 @@ import java.util.List;
  */
 public class BolsaDeTrabajo {
 
-    private boolean avaible = false;
+    private boolean available = false;
     private List<TicketSimplificado> ticketsSimplificados;
 
     public synchronized void addTicket(TicketSimplificado ts) {
-        while (avaible == true) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-
-            }
-        }
+        // System.out.println("agrego si available es false, avalable es " + available);
+        // while (available == true) {
+        // try {
+        // wait();
+        // } catch (InterruptedException e) {
+        // System.out.println(e.getMessage());
+        // }
+        // }
         this.ticketsSimplificados.add(ts);
-        System.out.println(this.ticketsSimplificados + "++++++++++++++++++++++++");
-        avaible = true;
+        available = true;
         notifyAll();
 
     }
@@ -35,25 +35,31 @@ public class BolsaDeTrabajo {
         this.ticketsSimplificados = new ArrayList<>();
     }
 
-    public synchronized TicketSimplificado removeTicket(int eleccionLocacion,int eleccionTicket) {
-        while (avaible == false) {
+    public synchronized TicketSimplificado removeTicket(int eleccionLocacion, int eleccionTicket) {
+
+        // System.out.println("remove si available es true, avalable es " + available);
+        while (available == false) {
             try {
                 wait();
             } catch (InterruptedException e) {
-
+                System.out.println(e.getMessage());
             }
         }
-        TicketSimplificado   ts=  this.ticketsSimplificados.remove(eleccionTicket); 
+        TicketSimplificado ts = this.ticketsSimplificados.get(eleccionTicket);
         if (eleccionLocacion == ts.getEleccionLocacion()) {
-            avaible = false;
+            available = false;
+            this.ticketsSimplificados.remove(eleccionTicket);
             notifyAll();
             return ts;
-        }
-        else{
+        } else {
+            available = false;
+            notifyAll();
             return null;
+
         }
     }
-    public synchronized List<TicketSimplificado> getListTicketsSimpl(){
+
+    public synchronized List<TicketSimplificado> getListTicketsSimpl() {
         return this.ticketsSimplificados;
     }
 
