@@ -19,53 +19,44 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class Observador_VentanaThread extends JFrame implements Observer{
+public class Observador_VentanaThread extends JFrame implements Observer {
 
-   
     private JTextArea area = new JTextArea();
     protected ArrayList<Usuario> observados = new ArrayList<Usuario>();
 
-    
-    public Observador_VentanaThread(){
-	JScrollPane scroll=new JScrollPane(area);
-	this.getContentPane().add(scroll);
-	this.setVisible(true);
-	this.setSize(new Dimension(600,600));
-	
-    }
-    
-    
-    public void agregarObservable(Usuario observable)
-    {
-	observable.addObserver(this);
-	this.observados.add(observable);
+    public Observador_VentanaThread() {
+        JScrollPane scroll = new JScrollPane(area);
+        this.getContentPane().add(scroll);
+        this.setVisible(true);
+        this.setSize(new Dimension(600, 600));
+
     }
 
-    public void borrarObservable(Usuario observable)
-    {
-	observable.deleteObserver(this);
-	this.observados.remove(observable);
+    public void agregarObservable(Usuario observable) {
+        observable.addObserver(this);
+        this.observados.add(observable);
     }
+
+    public void borrarObservable(Usuario observable) {
+        observable.deleteObserver(this);
+        this.observados.remove(observable);
+    }
+
     @Override
-    public void update(Observable o, Object arg)
-    {
-	Usuario observable = (Person) o;
-	if (this.observados.contains(o)){ 
-            if(arg==null){
-                this.area.append(o.toString() + "Consumio el ticket");
-            }
-            else{
-	    this.area.append(o.toString() + "Creo el ticket"+arg +"\n");
-                
+    public void update(Observable o, Object arg) {
+        Usuario observable = (Person) o;
+        if (this.observados.contains(o)) {
+            if (arg == null) {
+                this.area
+                        .append("\n" + o.toString() + "\nConsumio el ticket\n");
+            } else {
+                this.area.append("\n" + o.toString() + "\nCreo el ticket: " + arg + "\n");
+
             }
 
-	    
-	} else
-	    throw new IllegalArgumentException();
+        } else
+            throw new IllegalArgumentException();
 
     }
-    
-    
-    
-    
+
 }
