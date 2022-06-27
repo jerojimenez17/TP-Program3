@@ -2,3 +2,4 @@
 /LoginException.class
 /NoSeEncontroUsuarioException.class
 /NombreExistenteException.class
+/FaltaRondaEncuentrosException.class

@@ -2,8 +2,8 @@ package models;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
+import controlador.ControladorVentanaLogin;
 import models.Aspectos.DecoratorAspecto;
 import models.Aspectos.DecoratorAspectoPeso;
 import models.Aspectos.CargaHoraria.CargaHoraria;
@@ -22,12 +22,12 @@ import models.Aspectos.Remuneracion.RemuneracionEntreV1yV2;
 import models.Aspectos.TipoPuesto.Senior;
 import models.Aspectos.TipoPuesto.TipoPuesto;
 import persistencia.PersistenciaBinariaAgencia;
-import persistencia.PersistenciaEmpleadosXML;
+import vista.VentanaInicial2;
 
 public class main {
 
     public static void main(String[] args) {
-        Agencia agencia = new Agencia("agencia@gsdg", "1423523");
+        Agencia agencia = new Agencia("agencia", "12");
 
         Empleador empleador1 = new Empleador("Empleador1", "1234", "empleador1", "Fisica", "Comercio Local", agencia.getBolsaDeTrabajo());
 
@@ -120,32 +120,32 @@ public class main {
         ///////////////////////////////////////////////////////////////////////////////
         //////					Inicializamos la ronda de encuentros			///////
         ///////////////////////////////////////////////////////////////////////////////
-        agencia.iniciarRondaEncuentros();
+       ////// agencia.iniciarRondaEncuentros();
 
         ///////////////////////////////////////////////////////////////////////////////
         //////	Obtengo las asignaciones con sus puntajes para el empleado1		///////
         ///////////////////////////////////////////////////////////////////////////////
-        System.out.println(agencia.getAsignaciones(empleado1));
+      //////  System.out.println(agencia.getAsignaciones(empleado1));
 
         ///////////////////////////////////////////////////////////////////////////////
         //////	Obtengo las asignaciones con sus puntajes para el empleador1	///////
         ///////////////////////////////////////////////////////////////////////////////
-        System.out.println(agencia.getAsignaciones(empleador1));
-        empleado1.setAsignaciones(agencia.getAsignaciones(empleado1));
-        empleador1.setAsignaciones(agencia.getAsignaciones(empleador1));
+       /////////// System.out.println(agencia.getAsignaciones(empleador1));
+       ////////// empleado1.setAsignaciones(agencia.getAsignaciones(empleado1));
+       ////////// empleador1.setAsignaciones(agencia.getAsignaciones(empleador1));
         ///////////////////////////////////////////////////////////////////////////////
         //////	Inicio ronda de eleccion para empleado y empleador	///////
         ///////////////////////////////////////////////////////////////////////////////
-        empleador1.inicarRondaElecciones();
-        empleado1.inicarRondaElecciones();
+       //////////////// empleador1.inicarRondaElecciones();
+       ///// empleado1.inicarRondaElecciones();
 
-        agencia.IniciarRondaContratacion();
-        agencia.setPuntaje(empleado1);
-        agencia.setPuntaje(empleador1);
+        ///////agencia.IniciarRondaContratacion();
+       //////// agencia.setPuntaje(empleado1);
+       //////// agencia.setPuntaje(empleador1);
 
         System.out.println("///////hay tantas contrataciones: " + agencia.getContrataciones().size());
 
-        agencia.comision();
+       //////////// agencia.comision();
 //        System.out.println(empleador1.getTickets().toArray()[0]);
 //        System.out.println(empleado1.getTicket());
 
@@ -172,11 +172,11 @@ public class main {
             System.out.println(e);
         }
         System.out.println("**************CONTRATACIONES*****************");
-        if (!agencia.getContrataciones().isEmpty()) {
+    /*    if (!agencia.getContrataciones().isEmpty()) {
             for (Contratacion c : agencia.getContrataciones()) {
                 System.out.println(c);
             }
-        }
+        }*/
         empleador1.generarTicketSimplificado(2, 0, empleado1);
         Thread h1 = new Thread(empleador1);
         Thread h2 = new Thread(empleado1);
@@ -199,7 +199,7 @@ public class main {
 		//	for(Contratacion c: agencia.getContrataciones())
 		//		System.out.println(c);
 		
-		System.out.println("******************************************************************");
+		/*System.out.println("******************************************************************");
 		PersistenciaEmpleadosXML persistenciaEmpleadosXML=new PersistenciaEmpleadosXML();
 
 		persistenciaEmpleadosXML.serializeToXML(agencia.getEmpleados());
@@ -209,7 +209,12 @@ public class main {
 		
 		for(Empleado e:empleadosRecuperados)
 			System.out.println(e);
-
+*/
+		
+		
+		VentanaInicial2 ventanaLogin=new VentanaInicial2();
+		ControladorVentanaLogin controladorLogin=new ControladorVentanaLogin(ventanaLogin,agencia);
+		ventanaLogin.setVisible(true);
     }
 
     public static void persistir(PersistenciaBinariaAgencia persistencia, Agencia agencia) {

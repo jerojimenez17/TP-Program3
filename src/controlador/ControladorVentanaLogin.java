@@ -85,7 +85,7 @@ public class ControladorVentanaLogin implements ActionListener {
 					try {
 						empleador=this.agencia.loginEmpleador(this.vista.getUsername(), this.vista.getPassword());
 						VentanaEmpleador ventanaEmpleador=new VentanaEmpleador();
-						ventanaEmpleador.completarTitulo(this.agencia.getUsername());
+						ventanaEmpleador.completarTitulo(empleador.getUsername());
 						ControladorVentanaEmpleador controladorEmpleador=new ControladorVentanaEmpleador(ventanaEmpleador,this.agencia,empleador);
 						VentanaInicial2 v=(VentanaInicial2)this.vista;
 						v.setVisible(false);

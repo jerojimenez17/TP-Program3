@@ -74,10 +74,18 @@ public class Empleador extends Person implements Runnable {
     public void run() {
         myTicketsSimpl.forEach(ts -> {
             bolsaTrabajo.addTicket(ts);
+            this.setChanged();
             this.notifyObservers(ts);
         });
     }
-       
+     
+    
+    
+    
+	public List<TicketSimplificado> getMyTicketsSimpl() {
+		return myTicketsSimpl;
+	}
+
 	@Override
 	public String toString() {
 		return super.getName() + "\nRubro: " + getRubro();

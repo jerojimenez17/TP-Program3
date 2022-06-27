@@ -87,21 +87,7 @@ public class VentanaFormulario extends JFrame implements MouseListener,IVistaFor
 	private JPanel panel_8;
 	private JTextField textPesoEstudios;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaFormulario frame = new VentanaFormulario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.

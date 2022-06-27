@@ -18,12 +18,12 @@ public class CancelarState implements IStateTicket {
 
     @Override
     public void activar() {
-        this.ticket.setState(new ActivoState(this.ticket));
+        //this.ticket.setState(new ActivoState(this.ticket));
     }
 
     @Override
     public void pausar() {
-        this.ticket.setState(new PausaState(this.ticket));
+       // this.ticket.setState(new PausaState(this.ticket));
     
     }
 
@@ -34,7 +34,7 @@ public class CancelarState implements IStateTicket {
 
     @Override
     public void finalizar() {
-        this.ticket.setState(new FinalizarState(this.ticket));
+        //this.ticket.setState(new FinalizarState(this.ticket));
     }
     @Override
     public String toString() {

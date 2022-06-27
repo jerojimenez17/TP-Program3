@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import models.Empleador;
 import models.TicketEmpleado;
 import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 public class VentanaEmpleado extends JFrame implements IVistaEmpleado, MouseListener{
@@ -56,21 +57,8 @@ public class VentanaEmpleado extends JFrame implements IVistaEmpleado, MouseList
 	private JPanel panel_2;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaEmpleado frame = new VentanaEmpleado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
+	
 
 	/**
 	 * Create the frame.
@@ -243,5 +231,19 @@ public class VentanaEmpleado extends JFrame implements IVistaEmpleado, MouseList
 	}
 	public Empleador getSelectedValue() {
 		return this.listEmpleadores.getSelectedValue();
+	}
+
+	@Override
+	public void emergenteNoSeCreaTicket() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addActionListener(ActionListener listener) {
+		this.btnCrearTicket.addActionListener(listener);
+		this.btnElegir.addActionListener(listener);
+		this.btnModificarTicket.addActionListener(listener);
+		
 	}
 }

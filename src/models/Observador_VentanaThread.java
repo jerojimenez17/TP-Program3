@@ -27,10 +27,10 @@ public class Observador_VentanaThread extends JFrame implements Observer{
 
     
     public Observador_VentanaThread(){
-	JScrollPane scroll=new JScrollPane(area);
-	this.getContentPane().add(scroll);
-	this.setVisible(true);
-	this.setSize(new Dimension(600,600));
+    	JScrollPane scroll=new JScrollPane(area);
+    	this.getContentPane().add(scroll);
+    	this.setVisible(true);
+    	this.setSize(new Dimension(600,600));
 	
     }
     
@@ -46,6 +46,7 @@ public class Observador_VentanaThread extends JFrame implements Observer{
 	observable.deleteObserver(this);
 	this.observados.remove(observable);
     }
+    
     @Override
     public void update(Observable o, Object arg)
     {

@@ -13,6 +13,8 @@ public abstract class Person extends Usuario {
 	protected static final String PERSONA_FISICA = "FISICA";
 	protected static final String PERSONA_JURIDICA = "JURIDICA";
 	
+	private transient IPersonaState estado=new EsperandoRondaEncuentrosState(this);
+	
 	public Person(String username, String password, String name, String type) {
 		super(username, password);
 		this.name = name;
@@ -29,6 +31,15 @@ public abstract class Person extends Usuario {
 	public abstract boolean isEmpleado();
 	
 	
+	
+	public IPersonaState getEstado() {
+		return estado;
+	}
+
+	public void setEstado(IPersonaState estado) {
+		this.estado = estado;
+	}
+
 	public ListaAsignaciones getAsignaciones() {
 		return asignaciones;
 	}

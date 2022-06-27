@@ -6,6 +6,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  *
@@ -16,6 +17,16 @@ public class BolsaDeTrabajo {
     private boolean avaible = false;
     private List<TicketSimplificado> ticketsSimplificados;
 
+    
+    public BolsaDeTrabajo() {
+        this.ticketsSimplificados = new ArrayList<>();
+    }
+
+
+	
+    
+    
+    
     public synchronized void addTicket(TicketSimplificado ts) {
         while (avaible == true) {
             try {
@@ -31,9 +42,7 @@ public class BolsaDeTrabajo {
 
     }
 
-    public BolsaDeTrabajo() {
-        this.ticketsSimplificados = new ArrayList<>();
-    }
+    
 
     public synchronized TicketSimplificado removeTicket(int eleccionLocacion,int eleccionTicket) {
         while (avaible == false) {
@@ -53,8 +62,9 @@ public class BolsaDeTrabajo {
             return null;
         }
     }
-    public synchronized List<TicketSimplificado> getListTicketsSimpl(){
-        return this.ticketsSimplificados;
-    }
+    
+    //public synchronized List<TicketSimplificado> getListTicketsSimpl(){
+   //     return this.ticketsSimplificados;
+    //}
 
 }

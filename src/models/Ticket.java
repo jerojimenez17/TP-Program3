@@ -3,6 +3,8 @@ package models;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import models.Aspectos.IAspectos;
+
 public abstract class Ticket implements Serializable{
 
 	/**
@@ -65,6 +67,16 @@ public abstract class Ticket implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Fecha: " + getFechaAlta() + "\nEstado: " + estado + "\n" + formularioBusqueda.toString();
+		return "Fecha: " + getFechaAlta() + "\nEstado: " + this.state.toString() + "\n" + formularioBusqueda.toString();
+	}
+	
+	public FormularioBusqueda crearFormulario(IAspectos decoratorLocacion,
+			IAspectos decoratorTipoPuesto, IAspectos decoratorEleccionEdad,
+			IAspectos decoratorExperiencia,
+			IAspectos decoratorEstudios, IAspectos decoratorRemuneracion, IAspectos decoratorCargaHoraria) {
+		FormularioBusqueda formulario=new FormularioBusqueda(decoratorLocacion, decoratorTipoPuesto, decoratorEleccionEdad,
+				decoratorExperiencia,
+				decoratorEstudios, decoratorRemuneracion, decoratorCargaHoraria);
+		return formulario;
 	}
 }

@@ -26,6 +26,17 @@ public class ControladorVentanaAgencia implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		this.actualizarListas();
+		
+		if(e.getActionCommand().equals("Ronda Encuentros Laborales")) {
+			System.out.println("inicia ronda de encuentros laborales");
+			this.agencia.iniciarRondaEncuentros();
+			//forzamos eleccion de empleados y empleadores para probar
+			
+		}
+		else if(e.getActionCommand().equals("Ronda Contrataciones")) {
+			System.out.println("inicia ronda de contrataciones");
+			//this.agencia.IniciarRondaContratacion();
+		}
 	}
 	
 	public void actualizarListas() {

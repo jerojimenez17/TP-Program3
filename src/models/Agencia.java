@@ -1,6 +1,5 @@
 package models;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,8 +64,9 @@ public class Agencia extends Usuario {
 		for (Empleador empleador : empleadores) {
 			for (TicketEmpleador ticketEmpleador : empleador.getTicketsEmitidos()) {
 					for (Empleado empleado : empleados) {
-					if (ticketEmpleador.getEstado() == Ticket.ESTADO_ACTIVO
-							&& empleado.getTicket().getEstado() == Ticket.ESTADO_ACTIVO) {
+					if (/*ticketEmpleador.getEstado() == Ticket.ESTADO_ACTIVO
+							&& empleado.getTicket().getEstado() == Ticket.ESTADO_ACTIVO*/
+							ticketEmpleador.getState().toString().equals("activo") && empleado.getTicket().getState().toString().equals("activo")) {
 						Entrevista entrevista = new Entrevista(empleador, empleado, ticketEmpleador, empleado.getTicket());
 						
 						entrevista.setCompatibilidad(compatibilidad(empleado.getTicket(), ticketEmpleador));
@@ -115,13 +115,12 @@ public class Agencia extends Usuario {
 	
 	//Se evalua por cada empleador su lista de elecciones, si esta eleccion tambien esta en las elecciones de el empleado hay contratacion
 	public void IniciarRondaContratacion() {
-		for(Empleador empleador : empleadores) {
-			for(Entrevista eleccionEmpleador : empleador.getElecciones()) 
-					if(eleccionEmpleador.getEmpleado().getElecciones().contains(eleccionEmpleador)) {
-						contratacion(eleccionEmpleador);
-					}
-				}
+		for(Empleador empleador : empleadores) {	
+				for(Entrevista eleccionEmpleador : empleador.getElecciones()) 
+								contratacion(eleccionEmpleador);			
+		}
 	}
+
 
 	private void contratacion(Entrevista e) {
 		double sueldoAcordado=10000; //Este sera el sueldo acordado entre las partes que sera pedido al momento de la contratacion
@@ -286,6 +285,7 @@ System.out.println("///////hay tantas contrataciones: "+this.getContrataciones()
 				throw new NombreExistenteException("Nombre de usuario existente",e.getUsername());
 		}
 	
+		
 	
 	
 }

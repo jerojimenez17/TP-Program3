@@ -1,14 +1,5 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import models.Aspectos.DecoratorAspecto;
-import models.Aspectos.IAspectos;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class Empleado extends Person implements Runnable {
@@ -19,6 +10,7 @@ public class Empleado extends Person implements Runnable {
 	private TicketEmpleado ticket;
         private transient BolsaDeTrabajo bolsaDeTrabajo;
         private int eleccionLocacion=0; 
+        private TicketSimplificado ticketSimplificado=null;
 
 
 	public Empleado(String username, String password, String name, String surname, String phone, String dni,
@@ -101,7 +93,7 @@ public class Empleado extends Person implements Runnable {
 	}
         
         
-        @Override
+       @Override
         public void run(){
             int i=0;
             TicketSimplificado aux=null;
@@ -109,9 +101,11 @@ public class Empleado extends Person implements Runnable {
                 aux = bolsaDeTrabajo.removeTicket(eleccionLocacion,i); //Elijo ticket, arbitrariamente los primeros tres 
             }
             if(i<3){
+            	this.setChanged();
                 notifyObservers();
             }
         }
+	
 
 
 	@Override
@@ -128,5 +122,15 @@ public class Empleado extends Person implements Runnable {
 		}
 		if(i<this.getAsignaciones().getList().size())
 			this.getElecciones().add(0, this.getAsignaciones().getList().get(i));
+	}
+	
+	public boolean nuevoTicket() {
+		boolean respuesta=false;
+		if(this.ticket.getState().toString()=="cancelado"||this.ticket.getState().toString()=="finalizado") {
+			this.setTicket(new TicketEmpleado());
+			respuesta=true;
+			this.setAsignaciones(new ListaAsignaciones());
+		}
+		return respuesta;
 	}
 }

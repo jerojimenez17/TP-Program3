@@ -2,10 +2,11 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -20,9 +21,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import models.Empleado;
+import models.Entrevista;
 import models.TicketEmpleador;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
 
 public class VentanaEmpleador extends JFrame implements IVistaEmpleador, MouseListener{
 
@@ -53,21 +53,7 @@ public class VentanaEmpleador extends JFrame implements IVistaEmpleador, MouseLi
 	private DefaultListModel<Empleado> modeloListaEmpleado;
 	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaEmpleador frame = new VentanaEmpleador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -202,6 +188,7 @@ public class VentanaEmpleador extends JFrame implements IVistaEmpleador, MouseLi
 		if(this.listTickets.getSelectedValue()!=null)
 			if(this.rdbtnActivar.isSelected()||this.rdbtnCancelar.isSelected()||this.rdbtnSuspender.isSelected())
 				this.btnModificarTicket.setEnabled(true);
+		
 	}
 
 	@Override
@@ -216,4 +203,28 @@ public class VentanaEmpleador extends JFrame implements IVistaEmpleador, MouseLi
 		titulo+=nombre;
 		this.LabelTitulo.setText(titulo);
 	}
+
+	@Override
+	public DefaultListModel<TicketEmpleador> getModeloListaTicket() {
+		// TODO Auto-generated method stub
+		return this.modeloListaTicket;
+	}
+
+	@Override
+	public TicketEmpleador getTicketSelected() {
+		// TODO Auto-generated method stub
+		return this.listTickets.getSelectedValue();
+	}
+	@Override
+	public DefaultListModel<Empleado> getModeloListaEmpleado() {
+		// TODO Auto-generated method stub
+		return this.modeloListaEmpleado;
+	}
+
+	@Override
+	public Empleado getEmpleadoSelected() {
+		// TODO Auto-generated method stub
+		return this.list.getSelectedValue();
+	}
+	
 }
